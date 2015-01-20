@@ -73,7 +73,3 @@ That's it! More to come soon. Export the module.
 ```CoffeeScript
 	module.exports = new Turner()
 ```
-
-Disclaimer
-----------
-More documentation coming soon. Not yet ready for production, Please remember that use of this software means providing access to your provider's APIs, which use services that may cost you money. Always be careful with your API keys! Merciba is not responsible for any loss or damage caused by use of this software.  
