@@ -23,8 +23,8 @@ Here, we include the modules we'll need to parse Literate Coffeescript.
 Turner.toJs
 -----------
 
-Accepts: (string) litCoffee, (function) next
-Returns: ([promise](http://strongloop.com/strongblog/promises-in-node-js-with-q-an-alternative-to-callbacks/))
+**Accepts:** *(string)* litCoffee, *(function)* next  
+**Returns:** *([promise](http://strongloop.com/strongblog/promises-in-node-js-with-q-an-alternative-to-callbacks/))*  
 
 This function takes a string of Literate Coffeescript and gives you a string of valid, isomorphic vanilla JS for use on both the client and a Node server.
 
@@ -44,8 +44,8 @@ This function takes a string of Literate Coffeescript and gives you a string of 
 Turner.toHtml
 -----------
 
-Accepts: (string) litCoffee, (function) next
-Returns: ([promise](http://strongloop.com/strongblog/promises-in-node-js-with-q-an-alternative-to-callbacks/))
+**Accepts:** *(string)* litCoffee, *(function)* next  
+**Returns:** *([promise](http://strongloop.com/strongblog/promises-in-node-js-with-q-an-alternative-to-callbacks/))*  
 
 This function takes a string of Literate Coffeescript and gives you a string of valid HTML to serve up in a browser. 
 
