@@ -15,13 +15,13 @@ The constructor just returns itself. Nothing special here.
 Here, we include the modules we'll need to parse Literate Coffeescript.			
 
 ```CoffeeScript			
-coffee: require 'coffee-script'
+		coffee: require 'coffee-script'
 
-browserify: require 'browserify-string'
+		browserify: require 'browserify-string'
 
-markdown: require 'marked'
+		markdown: require 'marked'
 
-promise: require('q').Promise
+		promise: require('q').Promise
 ```
 
 Turner.toJs
@@ -33,18 +33,18 @@ Turner.toJs
 This function takes a string of Literate Coffeescript and gives you a string of valid, isomorphic vanilla JS for use on both the client and a Node server.
 
 ```CoffeeScript
-toJs: (litCoffee, next) ->
-	self = @
-	js = @coffee.compile litCoffee, { literate: true }
+		toJs: (litCoffee, next) ->
+			self = @
+			js = @coffee.compile litCoffee, { literate: true }
 
-	return self.browserify(js).bundle (err, bundle) ->
-		if next
-			next new Error err if err
-			next null, bundle.toString()
-		return self.promise (resolve, reject) ->
-			if err
-				reject new Error err
-			else resolve bundle.toString()
+			return self.browserify(js).bundle (err, bundle) ->
+				if next
+					next new Error err if err
+					next null, bundle.toString()
+				return self.promise (resolve, reject) ->
+					if err
+						reject new Error err
+					else resolve bundle.toString()
 ```
 
 Turner.toHtml
@@ -56,16 +56,16 @@ Turner.toHtml
 This function takes a string of Literate Coffeescript and gives you a string of valid HTML to serve up in a browser. 
 
 ```CoffeeScript
-toHtml: (litCoffee, next) ->
-	self = @
-	return @markdown litCoffee, (err, html) ->
-		if next
-			next new Error err if err
-			next null, html
-		return self.promise (resolve, reject) ->
-			if err
-				reject new Error err
-			else resolve html
+		toHtml: (litCoffee, next) ->
+			self = @
+			return @markdown litCoffee, (err, html) ->
+				if next
+					next new Error err if err
+					next null, html
+				return self.promise (resolve, reject) ->
+					if err
+						reject new Error err
+					else resolve html
 ```
 
 That's it! More to come soon. Export the module.
