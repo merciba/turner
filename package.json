@@ -1,0 +1,35 @@
+{
+  "name": "turner",
+  "version": "0.0.1",
+  "description": "Convert Literate Coffeescript to both rendered Markdown and isomorphic JavaScript",
+  "main": "index.js",
+  "scripts": {
+    "test": "mocha"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/merciba/turner"
+  },
+  "keywords": [
+    "literate",
+    "coffeescript",
+    "litcoffee",
+    "html"
+  ],
+  "author": "Merciba",
+  "license": "Apache 2.0",
+  "bugs": {
+    "url": "https://github.com/merciba/turner/issues"
+  },
+  "homepage": "https://github.com/merciba/turner",
+  "dependencies": {
+    "browserify-string": "^1.1.0",
+    "coffee-script": "^1.8.0",
+    "marked": "^0.3.2",
+    "q": "^1.1.2"
+  },
+  "devDependencies": {
+    "mocha": "^2.0.1",
+    "should": "^4.4.1"
+  }
+}
