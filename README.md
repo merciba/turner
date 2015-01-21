@@ -1,7 +1,19 @@
 Turner
 ========
 
-A small utility to get the most out of your Literate Coffeescript. Let's dig in!
+A small utility to get the most out of your Literate CoffeeScript. Let's dig in!
+
+Getting Started
+---------------
+
+```
+npm install turner
+```
+
+Source
+------
+
+**note: The following is a copy of the actual Literate CoffeeScript source code, located [here](https://github.com/merciba/turner/blob/master/src/turner.litcoffee). Check it out, to see LCS in action, acting as both a Markdown file and Coffeescript source code. Legit.**
 
 The constructor just returns itself. Nothing special here.
 
