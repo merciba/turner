@@ -1,6 +1,6 @@
 {
   "name": "turner",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "Convert Literate Coffeescript to both rendered Markdown and isomorphic JavaScript",
   "main": "index.js",
   "scripts": {
