@@ -23,10 +23,10 @@
   },
   "homepage": "https://github.com/merciba/turner",
   "dependencies": {
-    "browserify-string": "^1.1.0",
     "coffee-script": "^1.8.0",
+    "event-stream": "^3.2.1",
     "marked": "^0.3.2",
-    "q": "^1.1.2"
+    "uglify-stream": "^1.1.0"
   },
   "devDependencies": {
     "gulp": "^3.8.10",

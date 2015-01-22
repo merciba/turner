@@ -3,63 +3,32 @@ Turner
 
 A small utility to get the most out of your Literate Coffeescript. Let's dig in!
 
-The constructor just returns itself. Nothing special here.
+Here, we include the modules we'll need.
 
-	class Turner
+	coffee = require 'coffee-script'
+	markdown = require 'marked'
+	uglify = require 'uglify-stream'
+	es = require 'event-stream'
 
-		constructor: () ->
-			@
+A call to `require('turner')` will return these three methods: `coffeescript`, `minify`, and `markdown`. 
 
-Here, we include the modules we'll need to parse Literate Coffeescript.			
-			
-		coffee: require 'coffee-script'
+`es`, defined above, is an instance of [event-stream](https://www.npmjs.com/package/event-stream), an extremely useful and easy syntax for creating [transforms](http://codewinds.com/blog/2013-08-20-nodejs-transform-streams.html) to stick in your "pipes". 
 
-		browserify: require 'browserify-string'
+	Turner = {
 
-		markdown: require 'marked'
+		coffeescript: () ->
+			return es.through (data) ->
+				@queue coffee.compile data.toString(), { literate: true }
 
-		promise: require('q').Promise
+		minify: () ->
+			return uglify() # note here that uglify-stream already returns a transform. Badass!
 
-Turner.toJs
------------
+		markdown: () ->
+			return es.through (data) ->
+				@queue markdown data.toString()
 
-**Accepts:** *(string)* litCoffee, *(function)* next  
-**Returns:** *([promise](http://strongloop.com/strongblog/promises-in-node-js-with-q-an-alternative-to-callbacks/))*  
+	}
 
-This function takes a string of Literate Coffeescript and gives you a string of valid, isomorphic vanilla JS for use on both the client and a Node server.
+That's it! Export the module.
 
-		toJs: (litCoffee, next) ->
-			self = @
-			js = @coffee.compile litCoffee, { literate: true }
-
-			return self.browserify(js).bundle (err, bundle) ->
-				if next
-					next new Error err if err
-					next null, bundle.toString()
-				return self.promise (resolve, reject) ->
-					if err
-						reject new Error err
-					else resolve bundle.toString()
-
-Turner.toHtml
------------
-
-**Accepts:** *(string)* litCoffee, *(function)* next  
-**Returns:** *([promise](http://strongloop.com/strongblog/promises-in-node-js-with-q-an-alternative-to-callbacks/))*  
-
-This function takes a string of Literate Coffeescript and gives you a string of valid HTML to serve up in a browser. 
-
-		toHtml: (litCoffee, next) ->
-			self = @
-			return @markdown litCoffee, (err, html) ->
-				if next
-					next new Error err if err
-					next null, html
-				return self.promise (resolve, reject) ->
-					if err
-						reject new Error err
-					else resolve html
-
-That's it! More to come soon. Export the module.
-
-	module.exports = new Turner()
+	module.exports = Turner

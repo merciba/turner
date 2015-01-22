@@ -1,63 +1,29 @@
-var Turner;
+var Turner, coffee, es, markdown, uglify;
 
-Turner = (function() {
-  function Turner() {
-    this;
+coffee = require('coffee-script');
+
+markdown = require('marked');
+
+uglify = require('uglify-stream');
+
+es = require('event-stream');
+
+Turner = {
+  coffeescript: function() {
+    return es.through(function(data) {
+      return this.queue(coffee.compile(data.toString(), {
+        literate: true
+      }));
+    });
+  },
+  minify: function() {
+    return uglify();
+  },
+  markdown: function() {
+    return es.through(function(data) {
+      return this.queue(markdown(data.toString()));
+    });
   }
+};
 
-  Turner.prototype.coffee = require('coffee-script');
-
-  Turner.prototype.browserify = require('browserify-string');
-
-  Turner.prototype.markdown = require('marked');
-
-  Turner.prototype.promise = require('q').Promise;
-
-  Turner.prototype.toJs = function(litCoffee, next) {
-    var js, self;
-    self = this;
-    js = this.coffee.compile(litCoffee, {
-      literate: true
-    });
-    return self.browserify(js).bundle(function(err, bundle) {
-      if (next) {
-        if (err) {
-          next(new Error(err));
-        }
-        next(null, bundle.toString());
-      }
-      return self.promise(function(resolve, reject) {
-        if (err) {
-          return reject(new Error(err));
-        } else {
-          return resolve(bundle.toString());
-        }
-      });
-    });
-  };
-
-  Turner.prototype.toHtml = function(litCoffee, next) {
-    var self;
-    self = this;
-    return this.markdown(litCoffee, function(err, html) {
-      if (next) {
-        if (err) {
-          next(new Error(err));
-        }
-        next(null, html);
-      }
-      return self.promise(function(resolve, reject) {
-        if (err) {
-          return reject(new Error(err));
-        } else {
-          return resolve(html);
-        }
-      });
-    });
-  };
-
-  return Turner;
-
-})();
-
-module.exports = new Turner();
+module.exports = Turner;
